@@ -4,9 +4,8 @@ switch_aruba= {
           }
 switch_hp= { 
             }
-switch_cisco= { "R1" : "192.168.56.103",  # ventas
-                
-
+switch_cisco= { "R1" : "192.168.1.17",  # ventas
+            }
 for z in switch_cisco :
     print(z)
     print(switch_cisco[z])
@@ -15,7 +14,7 @@ for z in switch_cisco :
         host=switch_cisco[z], 
         port=22, 
         username='cisco', 
-        password='cisco.'
+        password='cisco123!'
         )
     comando ="show run "
     print(comando)
@@ -25,9 +24,3 @@ for z in switch_cisco :
     file = open(path, "w")   # in append mode
     file.write(showrun)
     print("Pass  !!")
-    
-
-
-
-
-
