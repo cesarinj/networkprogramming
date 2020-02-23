@@ -1,8 +1,8 @@
 from netmiko import ConnectHandler
 
-switch_3com= { 
+switch_aruba= { 
           }
-switch_3com1= { 
+switch_hp= { 
             }
 switch_cisco= { "R1" : "10.10.10.10",  # ventas
                 
