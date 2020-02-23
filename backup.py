@@ -4,7 +4,7 @@ switch_aruba= {
           }
 switch_hp= { 
             }
-switch_cisco= { "R1" : "10.10.10.10",  # ventas
+switch_cisco= { "R1" : "192.168.56.103",  # ventas
                 
 
 for z in switch_cisco :
@@ -21,11 +21,11 @@ for z in switch_cisco :
     print(comando)
     print(switch_cisco[z])
     showrun = sshCli.send_command(comando)
-    path = "F:/TFTP/"+z+".cfg"
+    path = "c:/backup/"+z+".cfg"
     file = open(path, "w")   # in append mode
     file.write(showrun)
-    print("Pass")
-    print("Finished")
+    print("Pass  !!")
+    
 
 
 
