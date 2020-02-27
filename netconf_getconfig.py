@@ -1,7 +1,6 @@
 from ncclient import manager
 import xml.dom.minidom
 import xmltodict
-import xml.dom.minidom
 
 # create a variable object that represents the NETCONF session
 m = manager.connect(
@@ -9,10 +8,11 @@ m = manager.connect(
          port=830,
          username="cisco",
          password="cisco123!",
-         hostkey_verify=False
+         hostkey_verify=False,
+         device_params={'name': 'default'},
          )
 
-print (m.connected)
+print ("Conexion Netconf  ",m.connected)
 running_config = m.get_config('running')
 running_config_beautify=xml.dom.minidom.parseString(str(running_config)).toprettyxml()
 running_config_txt=str(running_config)

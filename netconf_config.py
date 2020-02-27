@@ -10,11 +10,10 @@ m = manager.connect(
          )
 netconf_data = """
 <config><native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
-     <hostname>NEWHOSTNAME</hostname>
+     <hostname>R1</hostname>
 </native></config>"""
 
 netconf_reply = m.edit_config(target="running", config=netconf_data)
-
 
 print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml())
  
@@ -24,6 +23,7 @@ print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml())
 # it starts with the <config> element
 # and inside includes the actual YANG config data
 # It defines a Loopback 100 with 100.100.100.100/24
+
 netconf_data = """
 <config>
  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
@@ -34,7 +34,7 @@ netconf_data = """
     <ip>
      <address>
       <primary>
-       <address>100.10.10.100</address>
+       <address>100.10.12.100</address>
        <mask>255.255.255.0</mask>
       </primary>
      </address>
@@ -45,9 +45,33 @@ netconf_data = """
 </config>
 """
 
+netconf_data3 = """
+<config>
+ <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+     <hostname>R1</hostname>
+     <ip>
+      <route>
+          <ip-route-interface-forwarding-list>
+               <prefix>192.168.10.0</prefix>
+               <mask>255.255.255.0</mask>
+               <fwd-list>
+                    <fwd>192.168.56.5</fwd>
+               </fwd-list>
+           </ip-route-interface-forwarding-list>
+     </route>
+     </ip>
+</native>
+</config>"""
+
+
+
 # to edit the config, use the edit_config() method
 # target config and source NETCONF dataset
 # print the output (should include <ok/>)
 netconf_reply = m.edit_config(target="running", config=netconf_data)
 print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml())
+netconf_reply = m.edit_config(target="running", config=netconf_data3)
+print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml())
+
+
 

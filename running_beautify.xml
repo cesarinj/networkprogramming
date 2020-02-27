@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<rpc-reply message-id="urn:uuid:4eb74e0d-ce10-40a6-b71e-666d81b0ce74" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+<rpc-reply message-id="urn:uuid:365ea44a-aaa5-4113-ad06-44015886eb1b" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
 	<data>
 		<native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
 			<version>16.9</version>
@@ -29,7 +29,7 @@
 					<output>virtual</output>
 				</console>
 			</platform>
-			<hostname>NEWHOSTNAME</hostname>
+			<hostname>R1</hostname>
 			<username>
 				<name>cisco</name>
 				<privilege>15</privilege>
@@ -42,6 +42,32 @@
 				<forward-protocol>
 					<protocol>nd</protocol>
 				</forward-protocol>
+				<route>
+					<ip-route-interface-forwarding-list>
+						<prefix>192.168.10.0</prefix>
+						<mask>255.255.255.0</mask>
+						<fwd-list>
+							<fwd>192.168.56.1</fwd>
+						</fwd-list>
+						<fwd-list>
+							<fwd>192.168.56.5</fwd>
+						</fwd-list>
+					</ip-route-interface-forwarding-list>
+				</route>
+				<access-list>
+					<standard xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-acl">
+						<name>10</name>
+						<access-list-seq-rule>
+							<sequence>10</sequence>
+							<permit>
+								<std-ace>
+									<ipv4-prefix>10.0.0.0</ipv4-prefix>
+									<mask>0.0.0.255</mask>
+								</std-ace>
+							</permit>
+						</access-list-seq-rule>
+					</standard>
+				</access-list>
 				<http xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-http">
 					<authentication>
 						<local/>
@@ -50,6 +76,9 @@
 					<secure-server>true</secure-server>
 				</http>
 			</ip>
+			<ipv6>
+				<unicast-routing/>
+			</ipv6>
 			<interface>
 				<GigabitEthernet>
 					<name>1</name>
@@ -73,13 +102,38 @@
 					<ip>
 						<address>
 							<primary>
-								<address>100.10.10.100</address>
+								<address>100.10.12.100</address>
 								<mask>255.255.255.0</mask>
 							</primary>
 						</address>
 					</ip>
 				</Loopback>
 			</interface>
+			<route-map>
+				<name>politica</name>
+				<route-map-without-order-seq xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-route-map">
+					<seq_no>10</seq_no>
+					<operation>permit</operation>
+					<set>
+						<ip>
+							<precedence>
+								<precedence-fields>critical</precedence-fields>
+							</precedence>
+						</ip>
+					</set>
+					<match>
+						<ip>
+							<address>
+								<access-list>10</access-list>
+							</address>
+						</ip>
+					</match>
+				</route-map-without-order-seq>
+				<route-map-without-order-seq xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-route-map">
+					<seq_no>20</seq_no>
+					<operation>permit</operation>
+				</route-map-without-order-seq>
+			</route-map>
 			<control-plane/>
 			<login>
 				<on-success>
@@ -226,9 +280,9 @@
 						<ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
 							<addresses>
 								<address>
-									<ip>100.10.10.100</ip>
+									<ip>100.10.12.100</ip>
 									<config>
-										<ip>100.10.10.100</ip>
+										<ip>100.10.12.100</ip>
 										<prefix-length>24</prefix-length>
 									</config>
 								</address>
@@ -293,6 +347,30 @@
 							<identifier xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:STATIC</identifier>
 							<name>DEFAULT</name>
 						</config>
+						<static-routes>
+							<static>
+								<prefix>192.168.10.0/24</prefix>
+								<config>
+									<prefix>192.168.10.0/24</prefix>
+								</config>
+								<next-hops>
+									<next-hop>
+										<index>192.168.56.1</index>
+										<config>
+											<index>192.168.56.1</index>
+											<next-hop>192.168.56.1</next-hop>
+										</config>
+									</next-hop>
+									<next-hop>
+										<index>192.168.56.5</index>
+										<config>
+											<index>192.168.56.5</index>
+											<next-hop>192.168.56.5</next-hop>
+										</config>
+									</next-hop>
+								</next-hops>
+							</static>
+						</static-routes>
 					</protocol>
 					<protocol>
 						<identifier xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:DIRECTLY_CONNECTED</identifier>
@@ -305,6 +383,16 @@
 				</protocols>
 			</network-instance>
 		</network-instances>
+		<routing-policy xmlns="http://openconfig.net/yang/routing-policy">
+			<policy-definitions>
+				<policy-definition>
+					<name>politica</name>
+					<config>
+						<name>politica</name>
+					</config>
+				</policy-definition>
+			</policy-definitions>
+		</routing-policy>
 		<interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
 			<interface>
 				<name>GigabitEthernet1</name>
@@ -321,7 +409,7 @@
 				<enabled>true</enabled>
 				<ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
 					<address>
-						<ip>100.10.10.100</ip>
+						<ip>100.10.12.100</ip>
 						<netmask>255.255.255.0</netmask>
 					</address>
 				</ipv4>
@@ -353,6 +441,16 @@
 					<routing-protocol>
 						<type>static</type>
 						<name>1</name>
+						<static-routes>
+							<ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ipv4-unicast-routing">
+								<route>
+									<destination-prefix>192.168.10.0/24</destination-prefix>
+									<next-hop>
+										<next-hop-address>192.168.56.1</next-hop-address>
+									</next-hop>
+								</route>
+							</ipv4>
+						</static-routes>
 					</routing-protocol>
 				</routing-protocols>
 			</routing-instance>
