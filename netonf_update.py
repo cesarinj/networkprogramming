@@ -32,3 +32,28 @@ if __name__ == '__main__':
         print("  MAC Address: {}".format(intf_info["phys-address"]))
         print("  Packets Input: {}".format(intf_info["statistics"]["in-unicast-pkts"]))
         print("  Packets Output: {}".format(intf_info["statistics"]["out-unicast-pkts"]))
+
+
+
+
+
+
+
+# define a NETCONF filter to get only the required data
+# w/o this filter the NETCONF GET operation will try to 
+# return everything and will crash (aka. similar to 'debug all')
+# the filter defines that we want to get only data defined
+# in the ietf-interfaces model in the interfaces-state container
+
+# use the xmldict module to parse the NETCONF reply (in xml form)
+# the retuned object is a Python dictionary
+netconf_reply_dict = xmltodict.parse(netconf_reply.xml)
+
+# loop over the Python dictionary object and print the interesting data
+for interface in netconf_reply_dict["rpc-reply"]["data"]["interfaces-state"]["interface"]:
+    print("Name: {} MAC: {} Input: {} Output {}".format(
+                interface["name"],
+                interface["phys-address"],
+                interface["statistics"]["in-octets"],
+                interface["statistics"]["out-octets"]
+       )
