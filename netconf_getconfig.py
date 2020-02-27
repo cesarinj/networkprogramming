@@ -15,11 +15,11 @@ m = manager.connect(
 print (m.connected)
 running_config = m.get_config('running')
 running_config_beautify=xml.dom.minidom.parseString(str(running_config)).toprettyxml()
+running_config_txt=str(running_config)
+with open("running.xml","w") as file:
+    file.write(running_config_txt) 
 
-with open("running.txt","w") as file:
-    file.write(running_config1) 
-
-with open("running_beautify.txt","w") as file:
+with open("running_beautify.xml","w") as file:
     file.write(running_config_beautify)  
 
 
