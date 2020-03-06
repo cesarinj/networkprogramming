@@ -2,16 +2,16 @@
 
 from netmiko import ConnectHandler
 
-switch_3com= {  "SWCONTDC" : "10.10.10.10",
+switch_3com= {  "SW01" : "10.10.10.10",
           }
-switch_3com1= { "SW3PCTAL" : "10.10.10.11",
+switch_3com1= { "SW02" : "10.10.10.11",
 
             }
-switch_cisco= { "SWBRCSHM" : "10.10.10.12",  # 
-                "SW33DIDT" : "10.10.10.13",  # 
-                "SW1PRLPB" : "10.10.10.16",   
-                "SW1PCPMT" : "10.10.10.14", 
-                "SW3PLB42" : "10.10.10.15", 
+switch_cisco= { "SW03" : "10.10.10.12",  # 
+                "SW04" : "10.10.10.13",  # 
+                "SW05" : "10.10.10.16",   
+                "SW06" : "10.10.10.14", 
+                "SW07" : "10.10.10.15", 
                 }
     
 trasceiver_sn = ["ACW22120209","AGJ2206R307"]
