@@ -12,6 +12,9 @@ if __name__ == '__main__':
                             username=ios_xe["username"],
                             password=ios_xe["password"],
                             hostkey_verify=False ) as m:
+       
         print ("Capability")
-        for capability in m.server_capabilities:
-            print (capability)
+        with open("capability.txt","w") as file:
+            for capability in m.server_capabilities:
+                print (capability)
+                file.write(capability)  

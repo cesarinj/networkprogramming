@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<rpc-reply message-id="urn:uuid:365ea44a-aaa5-4113-ad06-44015886eb1b" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+<rpc-reply message-id="urn:uuid:9852f547-f4ed-4ed4-8d48-5a6c38a8725b" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
 	<data>
 		<native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
 			<version>16.9</version>
@@ -46,9 +46,6 @@
 					<ip-route-interface-forwarding-list>
 						<prefix>192.168.10.0</prefix>
 						<mask>255.255.255.0</mask>
-						<fwd-list>
-							<fwd>192.168.56.1</fwd>
-						</fwd-list>
 						<fwd-list>
 							<fwd>192.168.56.5</fwd>
 						</fwd-list>
@@ -98,15 +95,6 @@
 				</GigabitEthernet>
 				<Loopback>
 					<name>100</name>
-					<description>TEST100</description>
-					<ip>
-						<address>
-							<primary>
-								<address>100.10.12.100</address>
-								<mask>255.255.255.0</mask>
-							</primary>
-						</address>
-					</ip>
 				</Loopback>
 			</interface>
 			<route-map>
@@ -266,7 +254,6 @@
 				<config>
 					<name>Loopback100</name>
 					<type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
-					<description>TEST100</description>
 					<enabled>true</enabled>
 				</config>
 				<subinterfaces>
@@ -274,20 +261,8 @@
 						<index>0</index>
 						<config>
 							<index>0</index>
-							<description>TEST100</description>
 							<enabled>true</enabled>
 						</config>
-						<ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
-							<addresses>
-								<address>
-									<ip>100.10.12.100</ip>
-									<config>
-										<ip>100.10.12.100</ip>
-										<prefix-length>24</prefix-length>
-									</config>
-								</address>
-							</addresses>
-						</ipv4>
 						<ipv6 xmlns="http://openconfig.net/yang/interfaces/ip">
 							<config>
 								<enabled>false</enabled>
@@ -355,13 +330,6 @@
 								</config>
 								<next-hops>
 									<next-hop>
-										<index>192.168.56.1</index>
-										<config>
-											<index>192.168.56.1</index>
-											<next-hop>192.168.56.1</next-hop>
-										</config>
-									</next-hop>
-									<next-hop>
 										<index>192.168.56.5</index>
 										<config>
 											<index>192.168.56.5</index>
@@ -404,15 +372,9 @@
 			</interface>
 			<interface>
 				<name>Loopback100</name>
-				<description>TEST100</description>
 				<type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:softwareLoopback</type>
 				<enabled>true</enabled>
-				<ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
-					<address>
-						<ip>100.10.12.100</ip>
-						<netmask>255.255.255.0</netmask>
-					</address>
-				</ipv4>
+				<ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
 				<ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip"/>
 			</interface>
 		</interfaces>
@@ -446,7 +408,7 @@
 								<route>
 									<destination-prefix>192.168.10.0/24</destination-prefix>
 									<next-hop>
-										<next-hop-address>192.168.56.1</next-hop-address>
+										<next-hop-address>192.168.56.5</next-hop-address>
 									</next-hop>
 								</route>
 							</ipv4>

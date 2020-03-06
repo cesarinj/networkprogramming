@@ -4,7 +4,7 @@ switch_aruba= {
           }
 switch_hp= { 
             }
-switch_cisco= { "R1" : "192.168.1.17",  # ventas
+switch_cisco= { "R1" : "192.168.56.103",  # ventas
             }
 for z in switch_cisco :
     print(z)

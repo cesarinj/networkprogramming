@@ -58,11 +58,35 @@ netconf_data3 = """
                     <fwd>192.168.56.5</fwd>
                </fwd-list>
            </ip-route-interface-forwarding-list>
-     </route>
+      </route>
+
+
      </ip>
 </native>
 </config>"""
 
+netconf_data4 = """
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+    <interface>
+      <name>Loopback100</name>
+      <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+        <address>
+          <ip>11.11.11.1</ip>
+          <subnet>255.255.255.0</subnet>
+        </address>
+      </ipv6>
+
+      <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+        <address>
+          <ip>2001:1::3</ip>
+          <prefix-length>64</prefix-length>
+        </address>
+      </ipv6>
+    </interface>
+  </interfaces>
+</config>
+"""
 
 
 # to edit the config, use the edit_config() method
@@ -70,7 +94,7 @@ netconf_data3 = """
 # print the output (should include <ok/>)
 netconf_reply = m.edit_config(target="running", config=netconf_data)
 print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml())
-netconf_reply = m.edit_config(target="running", config=netconf_data3)
+netconf_reply = m.edit_config(target="running", config=netconf_data4)
 print(xml.dom.minidom.parseString(netconf_reply.xml).toprettyxml())
 
 

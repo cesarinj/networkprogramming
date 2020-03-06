@@ -18,7 +18,6 @@ running_config_beautify=xml.dom.minidom.parseString(str(running_config)).toprett
 running_config_txt=str(running_config)
 with open("running.xml","w") as file:
     file.write(running_config_txt) 
-
 with open("running_beautify.xml","w") as file:
     file.write(running_config_beautify)  
 
