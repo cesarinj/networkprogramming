@@ -7,11 +7,11 @@ switch_3com= {  "SWCONTDC" : "10.10.10.10",
 switch_3com1= { "SW3PCTAL" : "10.10.10.11",
 
             }
-switch_cisco= { "SWBRCSHM" : "10.10.10.12",  # Recurss humanos  9300
-                "SW33DIDT" : "10.10.10.13",  # JQUIROZ  9300
- #               "SW1PRLPB" : "10.100.100.126",   #cat 9300 Relaciones publicas 
-                "SW1PCPMT" : "10.10.10.14", #ok Laboratorio Cómputo 9
-                "SW3PLB42" : "10.10.10.15", # ws WS-C3560-24PS-E
+switch_cisco= { "SWBRCSHM" : "10.10.10.12",  # 
+                "SW33DIDT" : "10.10.10.13",  # 
+                "SW1PRLPB" : "10.10.10.16",   
+                "SW1PCPMT" : "10.10.10.14", 
+                "SW3PLB42" : "10.10.10.15", 
                 }
     
 trasceiver_sn = ["ACW22120209","AGJ2206R307"]
